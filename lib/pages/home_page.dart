@@ -7,7 +7,25 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('My App'),
       ),
-      body: Text('Home Page')
+      body: HomeNavigation()
     );
+  }
+}
+
+class HomeNavigation extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scrollbar(child: ListView(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      children: [
+        ListTile(
+          title: Text('books page'),
+          onTap: () => Navigator.pushNamed(context, '/words'),
+        ),
+        ListTile(
+          title: Text('random words page'),
+          onTap: () => Navigator.pushNamed(context, '/books')
+        )
+      ],
+    ));
   }
 }
