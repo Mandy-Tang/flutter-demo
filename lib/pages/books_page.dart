@@ -19,7 +19,7 @@ class _BooksPageState extends State<BooksPage> {
     super.initState();
   }
 
-  late Book _selectedBook;
+  Book? _selectedBook;
   bool show404 = false;
   List<Book> books = [
     Book('Left Hand of Darkness', 'Ursula K. Le Guin'),
@@ -48,10 +48,49 @@ class _BooksPageState extends State<BooksPage> {
                 onTapped: _handleBookTapped,
               ),
             ),
+            if (show404) MaterialPage(key: ValueKey('UnknownPage'), child: UnknownScreen())
+            else if (_selectedBook != null) MaterialPage(key: ValueKey(_selectedBook), child: BookDetailScreen(book: _selectedBook!))
           ],
         ));
   }
 }
+
+class UnknownScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Text('Unknown page')
+    );
+  }
+}
+
+class BookDetailScreen extends StatelessWidget {
+  final Book book;
+
+  BookDetailScreen({required this.book});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (book != null) ...[
+              Text(book.title, style: Theme.of(context).textTheme.headline6),
+              Text(book.author, style: Theme.of(context).textTheme.headline6),
+            ]
+          ],
+        ),
+        ),
+    );
+  }
+  
+}
+
 
 class BooksListScreen extends StatelessWidget {
   final List<Book> books;
@@ -63,7 +102,6 @@ class BooksListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: ListView(
         children: [
           for (var book in books)

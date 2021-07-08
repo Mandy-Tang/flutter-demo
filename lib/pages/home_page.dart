@@ -19,11 +19,11 @@ class HomeNavigation extends StatelessWidget {
       children: [
         ListTile(
           title: Text('books page'),
-          onTap: () => Navigator.pushNamed(context, '/words'),
+          onTap: () => Navigator.pushNamed(context, '/books'),
         ),
         ListTile(
           title: Text('random words page'),
-          onTap: () => Navigator.pushNamed(context, '/books')
+          onTap: () => Navigator.pushNamed(context, '/words')
         )
       ],
     ));
