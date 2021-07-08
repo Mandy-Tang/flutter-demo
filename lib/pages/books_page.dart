@@ -43,15 +43,27 @@ class _BooksPageState extends State<BooksPage> {
           pages: [
             MaterialPage(
               key: ValueKey('BooksListPage'),
-              child: BooksListScreen(
+              child: BookListScreen(
                 books: books,
                 onTapped: _handleBookTapped,
               ),
             ),
             if (show404) MaterialPage(key: ValueKey('UnknownPage'), child: UnknownScreen())
-            else if (_selectedBook != null) MaterialPage(key: ValueKey(_selectedBook), child: BookDetailScreen(book: _selectedBook!))
+            else if (_selectedBook != null) BookDetailPage(book: _selectedBook!)
           ],
-        ));
+          onPopPage: (route, result) {
+            if (!route.didPop((result))) {
+              return false;
+            }
+
+            setState(() {
+              _selectedBook = null;
+            });
+
+            return true;
+          }
+          ,
+        ),);
   }
 }
 
@@ -65,6 +77,19 @@ class UnknownScreen extends StatelessWidget {
   }
 }
 
+class BookDetailPage extends Page {
+  final Book book;
+   BookDetailPage({required this.book}): super(key: ValueKey(book));
+
+   @override
+  Route createRoute(BuildContext context) {
+    return MaterialPageRoute(settings: this,
+    builder: (BuildContext context) {
+      return BookDetailScreen(book: book);
+    });
+  }
+}
+
 class BookDetailScreen extends StatelessWidget {
   final Book book;
 
@@ -73,16 +98,14 @@ class BookDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (book != null) ...[
-              Text(book.title, style: Theme.of(context).textTheme.headline6),
-              Text(book.author, style: Theme.of(context).textTheme.headline6),
-            ]
+            Text(book.title, style: Theme.of(context).textTheme.headline6),
+            Text(book.author, style: Theme.of(context).textTheme.headline6),
           ],
         ),
         ),
@@ -92,10 +115,10 @@ class BookDetailScreen extends StatelessWidget {
 }
 
 
-class BooksListScreen extends StatelessWidget {
+class BookListScreen extends StatelessWidget {
   final List<Book> books;
   final ValueChanged<Book> onTapped;
-  BooksListScreen({
+  BookListScreen({
     required this.books,
     required this.onTapped,
   });
