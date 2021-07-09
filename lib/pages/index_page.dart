@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/pages/books_page.dart';
+import 'package:flutter_demo/pages/home_page.dart';
+import 'package:flutter_demo/pages/randam_words_page.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({Key? key}) : super(key: key);
@@ -10,21 +13,10 @@ class IndexPage extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _IndexPageState extends State<IndexPage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    RandomWordsPage(),
+    BooksPage()
   ];
 
   void _onItemTapped(int index) {
@@ -37,7 +29,7 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('My App'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -50,11 +42,11 @@ class _IndexPageState extends State<IndexPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Random Words',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'School',
+            label: 'Books',
           ),
         ],
         currentIndex: _selectedIndex,
