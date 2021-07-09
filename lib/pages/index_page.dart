@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/pages/books_page.dart';
+import 'package:flutter_demo/pages/business_page.dart';
 import 'package:flutter_demo/pages/home_page.dart';
-import 'package:flutter_demo/pages/randam_words_page.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _IndexPageState extends State<IndexPage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    RandomWordsPage(),
+    BusinessPage(),
     BooksPage()
   ];
 
@@ -42,7 +42,7 @@ class _IndexPageState extends State<IndexPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Random Words',
+            label: 'Business',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
