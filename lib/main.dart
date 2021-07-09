@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/pages/books_page.dart';
+import 'package:flutter_demo/pages/index_page.dart';
 import 'package:flutter_demo/pages/randam_words_page.dart';
 import 'package:flutter_demo/pages/home_page.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Startup Name Generator',
       initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => IndexPage(),
         '/words': (context) => RandomWordsPage(),
         '/books': (context) => BooksPage()
       },
